@@ -1,0 +1,105 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 50
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE PROCEDURE Case_Demo()
+    -> BEGIN
+    ->     DECLARE Marks INT DEFAULT 85;
+    ->
+    ->     CASE
+    ->         WHEN Marks >= 90 THEN
+    ->             SELECT 'Grade A' AS Result;
+    ->         WHEN Marks >= 75 THEN
+    ->             SELECT 'Grade B' AS Result;
+    ->         WHEN Marks >= 50 THEN
+    ->             SELECT 'Grade C' AS Result;
+    ->         ELSE
+    ->             SELECT 'Fail' AS Result;
+    ->     END CASE;
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL Case_Demo();
++---------+
+| Result  |
++---------+
+| Grade B |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE PROCEDURE Loop_Demo()
+    -> BEGIN
+    ->     DECLARE i INT DEFAULT 1;
+    ->
+    ->     simple_loop: LOOP
+    ->         SELECT i AS Number;
+    ->
+    ->         SET i = i + 1;
+    ->
+    ->         IF i > 5 THEN
+    ->             LEAVE simple_loop;
+    ->         END IF;
+    ->     END LOOP simple_loop;
+    -> END $$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL Loop_Demo();
++--------+
+| Number |
++--------+
+|      1 |
++--------+
+1 row in set (0.00 sec)
+
++--------+
+| Number |
++--------+
+|      2 |
++--------+
+1 row in set (0.00 sec)
+
++--------+
+| Number |
++--------+
+|      3 |
++--------+
+1 row in set (0.00 sec)
+
++--------+
+| Number |
++--------+
+|      4 |
++--------+
+1 row in set (0.00 sec)
+
++--------+
+| Number |
++--------+
+|      5 |
++--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>

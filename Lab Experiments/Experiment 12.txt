@@ -1,0 +1,76 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 44
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> CREATE TABLE Student(
+    ->     StudentID INT PRIMARY KEY,
+    ->     Name VARCHAR(50),
+    ->     Department VARCHAR(30),
+    ->     Age INT,
+    ->     Marks INT
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO Student
+    -> VALUES
+    -> (101,'Rahul','CSE',19,90),
+    -> (102,'Priya','IT',20,85),
+    -> (103,'Arun','ECE',18,88),
+    -> (104,'Anjali','IT',19,92),
+    -> (105,'Ramesh','CSE',20,80);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> CREATE VIEW Student_View AS
+    -> SELECT StudentID, Name, Marks
+    -> FROM Student;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM Student_View;
++-----------+--------+-------+
+| StudentID | Name   | Marks |
++-----------+--------+-------+
+|       101 | Rahul  |    90 |
+|       102 | Priya  |    85 |
+|       103 | Arun   |    88 |
+|       104 | Anjali |    92 |
+|       105 | Ramesh |    80 |
++-----------+--------+-------+
+5 rows in set (0.02 sec)
+
+mysql> CREATE INDEX idx_name
+    -> ON Student(Name);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW INDEX FROM Student;
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| student |          0 | PRIMARY  |            1 | StudentID   | A         |           5 |     NULL |   NULL |      | BTREE      |         |   | YES     | NULL       |
+| student |          1 | idx_name |            1 | Name        | A         |           5 |     NULL |   NULL | YES  | BTREE      |         |   | YES     | NULL       |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.07 sec)
+
+mysql> SELECT *
+    -> FROM Student
+    -> WHERE Name='Rahul';
++-----------+-------+------------+------+-------+
+| StudentID | Name  | Department | Age  | Marks |
++-----------+-------+------------+------+-------+
+|       101 | Rahul | CSE        |   19 |    90 |
++-----------+-------+------------+------+-------+
+1 row in set (0.00 sec)
+
+mysql>

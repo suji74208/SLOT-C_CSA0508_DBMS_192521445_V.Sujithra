@@ -1,0 +1,96 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 56
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> CREATE TABLE Student(
+    ->     StudentID INT PRIMARY KEY,
+    ->     Name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO Student
+    -> VALUES
+    -> (101,' Rahul '),
+    -> (102,' Priya '),
+    -> (103,' Arun ');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT CONCAT(Name, SPACE(5), 'IT') AS Result
+    -> FROM Student;
++----------------+
+| Result         |
++----------------+
+|  Rahul      IT |
+|  Priya      IT |
+|  Arun      IT  |
++----------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT Name, SUBSTR(Name,2,3) AS Sub_String
+    -> FROM Student;
++---------+------------+
+| Name    | Sub_String |
++---------+------------+
+|  Rahul  | Rah        |
+|  Priya  | Pri        |
+|  Arun   | Aru        |
++---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, UPPER(Name) AS Upper_Name
+    -> FROM Student;
++---------+------------+
+| Name    | Upper_Name |
++---------+------------+
+|  Rahul  |  RAHUL     |
+|  Priya  |  PRIYA     |
+|  Arun   |  ARUN      |
++---------+------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT Name, LOWER(Name) AS Lower_Name
+    -> FROM Student;
++---------+------------+
+| Name    | Lower_Name |
++---------+------------+
+|  Rahul  |  rahul     |
+|  Priya  |  priya     |
+|  Arun   |  arun      |
++---------+------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT Name, TRIM(Name) AS Trim_Name
+    -> FROM Student;
++---------+-----------+
+| Name    | Trim_Name |
++---------+-----------+
+|  Rahul  | Rahul     |
+|  Priya  | Priya     |
+|  Arun   | Arun      |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, LENGTH(TRIM(Name)) AS Length_Name
+    -> FROM Student;
++---------+-------------+
+| Name    | Length_Name |
++---------+-------------+
+|  Rahul  |           5 |
+|  Priya  |           5 |
+|  Arun   |           4 |
++---------+-------------+
+3 rows in set (0.01 sec)
+
+mysql>

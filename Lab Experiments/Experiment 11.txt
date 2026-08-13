@@ -1,0 +1,118 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 42
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> CREATE TABLE Department(
+    ->     DeptID INT PRIMARY KEY,
+    ->     DeptName VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO Department
+    -> VALUES
+    -> (1,'CSE'),
+    -> (2,'IT'),
+    -> (3,'ECE'),
+    -> (4,'EEE');
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Student(
+    ->     StudentID INT PRIMARY KEY,
+    ->     Name VARCHAR(50),
+    ->     DeptID INT,
+    ->     Marks INT,
+    ->     FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO Student
+    -> VALUES
+    -> (101,'Rahul',1,90),
+    -> (102,'Priya',2,85),
+    -> (103,'Arun',3,88),
+    -> (104,'Anjali',2,92),
+    -> (105,'Ramesh',1,80);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT Student.StudentID,
+    ->        Student.Name,
+    ->        Department.DeptName
+    -> FROM Student, Department
+    -> WHERE Student.DeptID = Department.DeptID;
++-----------+--------+----------+
+| StudentID | Name   | DeptName |
++-----------+--------+----------+
+|       101 | Rahul  | CSE      |
+|       105 | Ramesh | CSE      |
+|       102 | Priya  | IT       |
+|       104 | Anjali | IT       |
+|       103 | Arun   | ECE      |
++-----------+--------+----------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT S.StudentID,
+    ->        S.Name,
+    ->        D.DeptName
+    -> FROM Student S
+    -> INNER JOIN Department D
+    -> ON S.DeptID = D.DeptID;
++-----------+--------+----------+
+| StudentID | Name   | DeptName |
++-----------+--------+----------+
+|       101 | Rahul  | CSE      |
+|       105 | Ramesh | CSE      |
+|       102 | Priya  | IT       |
+|       104 | Anjali | IT       |
+|       103 | Arun   | ECE      |
++-----------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT S.StudentID,
+    ->        S.Name,
+    ->        D.DeptName
+    -> FROM Student S
+    -> LEFT OUTER JOIN Department D
+    -> ON S.DeptID = D.DeptID;
++-----------+--------+----------+
+| StudentID | Name   | DeptName |
++-----------+--------+----------+
+|       101 | Rahul  | CSE      |
+|       102 | Priya  | IT       |
+|       103 | Arun   | ECE      |
+|       104 | Anjali | IT       |
+|       105 | Ramesh | CSE      |
++-----------+--------+----------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT S.StudentID,
+    ->        S.Name,
+    ->        D.DeptName
+    -> FROM Student S
+    -> RIGHT OUTER JOIN Department D
+    -> ON S.DeptID = D.DeptID;
++-----------+--------+----------+
+| StudentID | Name   | DeptName |
++-----------+--------+----------+
+|       101 | Rahul  | CSE      |
+|       105 | Ramesh | CSE      |
+|       102 | Priya  | IT       |
+|       104 | Anjali | IT       |
+|       103 | Arun   | ECE      |
+|      NULL | NULL   | EEE      |
++-----------+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql>

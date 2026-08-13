@@ -1,0 +1,102 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 53
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> CREATE TABLE Student(
+    ->     StudentID INT PRIMARY KEY,
+    ->     Name VARCHAR(50),
+    ->     Marks INT
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO Student
+    -> VALUES
+    -> (101,'Rahul',90),
+    -> (102,'Priya',85),
+    -> (103,'Arun',88),
+    -> (104,'Anjali',92),
+    -> (105,'Ramesh',80);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE PROCEDURE Cursor_Demo()
+    -> BEGIN
+    ->     DECLARE done INT DEFAULT FALSE;
+    ->     DECLARE sname VARCHAR(50);
+    ->
+    ->     DECLARE cur CURSOR FOR
+    ->         SELECT Name FROM Student;
+    ->
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND
+    ->         SET done = TRUE;
+    ->
+    ->     OPEN cur;
+    ->
+    ->     read_loop: LOOP
+    ->         FETCH cur INTO sname;
+    ->
+    ->         IF done THEN
+    ->             LEAVE read_loop;
+    ->         END IF;
+    ->
+    ->         SELECT sname AS Student_Name;
+    ->     END LOOP;
+    ->
+    ->     CLOSE cur;
+    -> END $$
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> CALL Cursor_Demo();
++--------------+
+| Student_Name |
++--------------+
+| Rahul        |
++--------------+
+1 row in set (0.01 sec)
+
++--------------+
+| Student_Name |
++--------------+
+| Priya        |
++--------------+
+1 row in set (0.01 sec)
+
++--------------+
+| Student_Name |
++--------------+
+| Arun         |
++--------------+
+1 row in set (0.01 sec)
+
++--------------+
+| Student_Name |
++--------------+
+| Anjali       |
++--------------+
+1 row in set (0.01 sec)
+
++--------------+
+| Student_Name |
++--------------+
+| Ramesh       |
++--------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>

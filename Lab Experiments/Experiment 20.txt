@@ -1,0 +1,107 @@
+Enter password: *************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 55
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE CollegeDB;
+Database changed
+mysql> CREATE TABLE Student(
+    ->     StudentID INT PRIMARY KEY,
+    ->     Name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Student
+    -> VALUES
+    -> (101,'Rahul'),
+    -> (102,'Priya'),
+    -> (103,'Arun');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT Name, REPLACE(Name,'a','@') AS Replace_Name
+    -> FROM Student;
++-------+--------------+
+| Name  | Replace_Name |
++-------+--------------+
+| Rahul | R@hul        |
+| Priya | Priy@        |
+| Arun  | Arun         |
++-------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, REPEAT(Name,2) AS Repeat_Name
+    -> FROM Student;
++-------+-------------+
+| Name  | Repeat_Name |
++-------+-------------+
+| Rahul | RahulRahul  |
+| Priya | PriyaPriya  |
+| Arun  | ArunArun    |
++-------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT Name, REVERSE(Name) AS Reverse_Name
+    -> FROM Student;
++-------+--------------+
+| Name  | Reverse_Name |
++-------+--------------+
+| Rahul | luhaR        |
+| Priya | ayirP        |
+| Arun  | nurA         |
++-------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, RIGHT(Name,3) AS Right_Chars
+    -> FROM Student;
++-------+-------------+
+| Name  | Right_Chars |
++-------+-------------+
+| Rahul | hul         |
+| Priya | iya         |
+| Arun  | run         |
++-------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, LEFT(Name,3) AS Left_Chars
+    -> FROM Student;
++-------+------------+
+| Name  | Left_Chars |
++-------+------------+
+| Rahul | Rah        |
+| Priya | Pri        |
+| Arun  | Aru        |
++-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Name, RPAD(Name,10,'*') AS Right_Pad
+    -> FROM Student;
++-------+------------+
+| Name  | Right_Pad  |
++-------+------------+
+| Rahul | Rahul***** |
+| Priya | Priya***** |
+| Arun  | Arun****** |
++-------+------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT Name, LPAD(Name,10,'*') AS Left_Pad
+    -> FROM Student;
++-------+------------+
+| Name  | Left_Pad   |
++-------+------------+
+| Rahul | *****Rahul |
+| Priya | *****Priya |
+| Arun  | ******Arun |
++-------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
